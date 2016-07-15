@@ -8,4 +8,4 @@
 <img src="./preview/启动server.png">
 
 效果图2 pc端显示效果
-<img src="./preview/pc预览.png">
+<img src="./preview/pc端预览.png">
