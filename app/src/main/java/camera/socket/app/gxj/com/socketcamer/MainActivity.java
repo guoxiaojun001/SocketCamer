@@ -2,6 +2,7 @@ package camera.socket.app.gxj.com.socketcamer;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.hardware.Camera;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     private Button mButton;
     private String mIP;
     private int mPort = 8888;
+
+    Camera camera;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +53,20 @@ public class MainActivity extends AppCompatActivity {
         });
         mCameraManager = new CameraManager(this);
         // Create our Preview view and set it as the content of our activity.
-        mPreview = new CameraPreview(this, mCameraManager.getCamera());
+        camera = mCameraManager.getCamera();
+        mPreview = new CameraPreview(this, camera);
         FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
         preview.addView(mPreview);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(camera != null){
+            camera.release();
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
